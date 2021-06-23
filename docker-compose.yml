@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mysql57:
+    container_name: mysql57
+    image: mysql/mysql-server:5.7
+    ports:
+      - "6033:3306"
+    networks:
+      - network-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db_azubiscout
+      - MYSQL_ROOT_HOST=%
+    
+  azubiscout-backend:
+    image: azubiscout-backend
+    ports:
+     networks:
+      - network-mysql
+    depends_on:
+      - mysql57
+    ports:
+      - 9090:9090
+      
+ 
+networks:
+  network-mysql:

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kilcote.dao.system.user.UserMapper">
+	
+	<resultMap id="UserResultMap" type="com.kilcote.entity.system.User">
+	  	<id column="id"  property="user_id"  /> 
+	 	<result column="email"  property="name"  /> 
+	 	<result column="password"  property="password"  /> 	 
+	 	<result column="status"  property="status"  /> 
+	</resultMap>
+
+	<select id="findAllUsers" resultMap="UserResultMap">
+		select id, email, password, status from t_user
+	</select>
+		
+	<select id="findByUserid" resultMap="UserResultMap">
+		select user_id, name, userid, password from t_user WHERE id=#{userid}
+	</select>
+		
+	<insert id="addUser" parameterType="com.kilcote.entity.system.User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user(name, email, password, status) values(#{name}, #{email}, #{password}, #{status})
+	</insert>
+	
+    <update id="updateUser" parameterType="com.kilcote.entity.system.User">
+        update t_user
+        set
+	    	email = #{email},
+	        password = #{password},
+	        email = #{email},
+	        status = #{status}
+        where
+          id = #{id}
+    </update>
+    
+    <delete id="removeUser">
+        delete from 
+			t_user
+        where
+            id = #{id}
+    </delete>
+</mapper>
